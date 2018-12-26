@@ -10,11 +10,7 @@ use Yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         return view('admin.users.index');
@@ -47,13 +43,6 @@ class UsersController extends Controller
         $user->update($request->all());
         return back();
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Request $request)
     {
         $user = User::findOrFail($request->id);

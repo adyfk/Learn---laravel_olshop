@@ -28,11 +28,11 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('user.update','perbarui') }}" method="POST">
+                    <form action="{{ route('product.update','perbarui') }}" method="POST">
                         @method('PUT')
                         @csrf
                         <div class="modal-body">
-                            @include('admin.users._form')
+                            @include('admin.products._form')
                         </div>           
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -51,7 +51,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="{{ route('user.destroy','test') }}" method="POST">
+                    <form action="{{ route('product.destroy','test') }}" method="POST">
                         @method('DELETE')
                         @csrf
                         <div class="modal-body">
@@ -78,7 +78,7 @@
             $('#delete').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget) 
                 var id = button.data('id') 
-                var nama = button.data('nama') 
+                var nama = button.data('title') 
                 var modal = $(this)
                 modal.find('.modal-body #id').val(id);
                 $('.modal-body #namax')[0].innerText=nama;  
@@ -86,22 +86,24 @@
             $('#edit').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget) 
                 var id = button.data('id') 
-                var nama = button.data('nama') 
-                var email = button.data('email') 
-                var j_k = button.data('jk') 
-                var no_hp = button.data('nohp') 
+                var title = button.data('title') 
+                var desc = button.data('desc') 
+                var img = button.data('img') 
+                var qyt = button.data('qyt') 
+                var price = button.data('price') 
                 var modal = $(this)
                 modal.find('.modal-body #id').val(id);
-                modal.find('.modal-body #nama').val(nama);
-                modal.find('.modal-body #email').val(email);
-                modal.find('.modal-body #j_k').val(j_k);
-                modal.find('.modal-body #no_hp').val(no_hp);
+                modal.find('.modal-body #title').val(title);
+                modal.find('.modal-body #desc').val(desc);
+                modal.find('.modal-body #img').val(img);
+                modal.find('.modal-body #qyt').val(qyt);
+                modal.find('.modal-body #price').val(price);
             })
             function reload(){
                 $(document).ready(function(){
                  $('#table').DataTable({
                     "columnDefs": [
-                        { "orderable": false, "targets": [5,4,3,2] },
+                        { "orderable": false, "targets": [5,2] },
                         { "searchable": false, "targets": [5,4]}
                     ],
                     //"bInfo" : false,
