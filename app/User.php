@@ -11,12 +11,6 @@ class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use Notifiable;
-    protected $fillable = [
-        'name', 'email', 'password', 'no_hp', 'j_k',
-    ];
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
     public static function boot()
     {
         parent::boot();
@@ -26,4 +20,12 @@ class User extends Authenticatable
             ]);
         });
     }
+
+    protected $fillable = [
+        'name', 'email', 'password', 'no_hp', 'j_k',
+    ];
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
+
 }
