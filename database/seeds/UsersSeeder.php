@@ -1,5 +1,7 @@
 <?php
 
+use App\Category;
+use App\Product;
 use App\Role;
 use App\User;
 use Illuminate\Database\Seeder;
@@ -41,5 +43,18 @@ class UsersSeeder extends Seeder
         $admin->password = Hash::make('rahasia');
         $admin->save();
         $admin->attachRole($memberRole);
+
+        $cat = new Category();
+        $cat->title = "Fantasi";
+        $cat->save();
+
+        $prod = new Product();
+        $prod->title = "Buku baca Baca";
+        $prod->desc = "Buku ni Buku Baca Buku ni Buku Baca Buku ni Buku Baca Buku ni Buku Baca  Buku a Buku ni Buku Baca";
+        $prod->qyt = 20;
+        $prod->price = 250000;
+        $prod->category_id = 1;
+        $prod->img = "";
+        $prod->save();
     }
 }

@@ -20,7 +20,9 @@ class CreateProductsTable extends Migration
             $table->string('img');
             $table->integer('qyt');
             $table->integer('price');
+            $table->integer('category_id')->unsigned();
             $table->timestamps();
+            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

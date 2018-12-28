@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Yajra\Datatables\Datatables;
 
 class UsersController extends Controller
 {
-
     public function index()
     {
         return view('admin.users.index');
@@ -20,22 +18,11 @@ class UsersController extends Controller
     {
         $user = User::where('email', '!=', 'x@x.x');
         return DataTables::of($user)
-            ->addColumn('password', function ($user) {
-                return "<a class='btn btn-sm btn-outline-info' href='" . route('user.show', $user->id) . "'><i class='fas fa-retweet mr-1'></i>Reset</a>";
-            })
             ->addColumn('action', function ($user) {
-                return "<button class='btn btn-sm btn-outline-primary' data-id='$user->id' data-nama='$user->name' data-email='$user->email' data-jk='$user->j_k' data-nohp='$user->no_hp'  data-target='#edit' data-toggle='modal' ><i class='far fa-edit mr-1'></i>Edit</button>
-                        <button class='btn btn-sm btn-outline-danger' data-id='$user->id' data-nama='$user->name' data-target='#delete' data-toggle='modal'><i class='far fa-trash-alt mr-1'></i>Hapus</button>";
+                return "<button class='btn btn-sm btn-outline-danger' data-id='$user->id' data-nama='$user->name' data-target='#delete' data-toggle='modal'><i class='far fa-trash-alt mr-1'></i>Hapus</button>";
             })
             ->rawColumns(['password', 'action'])
             ->make(true);
-    }
-    public function show($id)
-    {
-        $user = User::findOrFail($id);
-        $user->password = Hash::make($user->name);
-        $user->save();
-        return back();
     }
     public function update(Request $request)
     {
@@ -47,7 +34,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($request->id);
         $user->delete();
-        return redirect()->back();
+        return back();
 
     }
 }
