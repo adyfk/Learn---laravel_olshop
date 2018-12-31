@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Laratrust\LaratrustFacade as Laratrust;
+use Auth;   
 class HomeController extends Controller
 {
     /**
@@ -20,6 +21,15 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
+    {
+        if (Laratrust::hasRole('admin')) return $this->adminDashboard();
+        if (Laratrust::hasRole('member')) return $this->memberDashboard();
+    }
+    protected function memberDashboard()
+    {
+        return view('index');
+    }
+    protected function adminDashboard()
     {
         return view('home');
     }
