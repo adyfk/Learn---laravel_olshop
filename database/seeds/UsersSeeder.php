@@ -4,6 +4,9 @@ use App\Category;
 use App\Product;
 use App\Role;
 use App\User;
+use App\Order;
+use App\Addrs;
+use App\OrderDetail;
 use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
@@ -56,5 +59,56 @@ class UsersSeeder extends Seeder
         $prod->category_id = 1;
         $prod->img = "";
         $prod->save();
+        $prod = new Product();
+        $prod->title = "Mandrain";
+        $prod->desc = "Buku ni Buku Baca Buku ni Buku Baca Buku ni Buku Baca Buku ni Buku Baca  Buku a Buku ni Buku Baca";
+        $prod->qyt = 20;
+        $prod->price = 250000;
+        $prod->category_id = 1;
+        $prod->img = "";
+        $prod->save();
+
+        $prod = new Addrs();
+        $prod->user_id = 2;
+        $prod->nama = "Satrio Piningit";
+        $prod->alamat = "Semarang Barat";
+        $prod->pos = "44322";
+        $prod->contact = "082136950725";
+        $prod->save();
+
+        $prod = new Order();
+        $prod->user_id = 2;
+        $prod->price = 250000;
+        $prod->addrs_id = 1;
+        $prod->save();
+        
+        $x= new OrderDetail();
+        $x->order_id = $prod->id;
+        $x->product_id=1;
+        $x->ket = "Beli 4";
+        $x->qyt = 2000;
+        $x->save();
+
+        $x= new OrderDetail();
+        $x->order_id = $prod->id;
+        $x->product_id=1;
+        $x->qyt = 5000;
+        $x->ket = "Beli 2";
+        $x->save();
+
+        $prod = new Order();
+        $prod->user_id = 1;
+        $prod->price = 500000;
+        $prod->addrs_id = 1;
+        $prod->save();
+        
+        $x= new OrderDetail();
+        $x->order_id = $prod->id;
+        $x->product_id=1;
+        $x->qyt = 5000;
+        $x->ket = "Beli 2";
+        $x->save();
+        
+
     }
 }

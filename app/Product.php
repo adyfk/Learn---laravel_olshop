@@ -13,4 +13,8 @@ class Product extends Model
     {
         return $this->belongsTo('App\Category');
     }
+    public function orderdetail()
+    {
+        return $this->hasOne('App\OderDetail');
+    }
 }

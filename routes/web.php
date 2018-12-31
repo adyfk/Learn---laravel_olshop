@@ -13,4 +13,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:admin']], func
     Route::post('/product/updatecat', 'Admin\ProductsController@updatecat')->name('updatecat');
     Route::post('/product/delcat', 'Admin\ProductsController@delcat')->name('delcat');
     Route::resource('product', 'Admin\ProductsController');
+    Route::get('/order', 'Admin\OrderController@index');
+    Route::get('/order/data', 'Admin\OrderController@data')->name('dataorder');
+    Route::get('/order/{id}/show', 'Admin\OrderController@listproduct')->name('listproduct');
+    Route::get('/order/{id}/payed', 'Admin\OrderController@payed')->name('payed');
+    Route::get('/order/{id}/status', 'Admin\OrderController@status')->name('status');
 });
