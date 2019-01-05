@@ -17,9 +17,13 @@ class CreateAddrsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('nama')->nullable();
-            $table->string('alamat');
-            $table->string('pos');
-            $table->string('contact');
+            $table->string('prov')->nullable();
+            $table->string('kab')->nullable();
+            $table->string('kec')->nullable();
+            $table->string('alamat')->nullable();
+            $table->integer('pos')->nullable();
+            $table->string('contact')->nullable();
+            $table->integer('selected')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }

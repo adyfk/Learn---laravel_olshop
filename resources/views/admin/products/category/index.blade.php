@@ -97,15 +97,15 @@
         </div>
             <script>
                 $('#editcat').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget) 
-                var modal = $(this)
-                modal.find('.modal-body #id').val(button.data('id'));
-                modal.find('.modal-body #titlecat').val(button.data('title'));
-            })
+                    var button = $(event.relatedTarget) 
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(button.data('id'));
+                    modal.find('.modal-body #titlecat').val(button.data('title'));
+                })
                 $('#delcat').on('show.bs.modal', function (event) {
-                var button = $(event.relatedTarget) 
-                var modal = $(this)
-                modal.find('.modal-body #id').val(button.data('id'));
-                modal.find('.modal-body #namax')[0].innerText = button.data('title');
-            })
+                    var button = $(event.relatedTarget) 
+                    var modal = $(this)
+                    modal.find('.modal-body #id').val(button.data('id'));
+                    modal.find('.modal-body #namax')[0].innerText = button.data('title');
+                })
             </script>

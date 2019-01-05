@@ -3,7 +3,6 @@
 @section('style')
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
-    
 @endsection
 @section('content')
 <div class="container">
@@ -17,94 +16,94 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="home-tab">
-                        <button class='btn btn-sm btn-outline-success  my-4' data-target='#add' data-toggle='modal'><i class='far fa-edit mr-1'></i>ADD NEW</button>
-                        <table id='table' class='table table-sm table-hover responsive'>
-                                <thead>
-                                    <tr>
-                                        <td width='20%'>title</td>
-                                        <td width='30%'>desc</td>
-                                        <td>img</td>
-                                        <td>Category</td>   
-                                        <td>qyt</td>
-                                        <td>price</td>
-                                        <td width='15%'></td>
-                                    </tr>
-                                </thead>
-                        </table>
-                        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" >
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editLabel">Edit Data</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form action="{{ route('product.update','perbarui') }}" method="POST">
-                                        @method('PUT')
-                                        @csrf
-                                        <div class="modal-body">
-                                            @include('admin.products._form')
-                                        </div>           
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
+                    <button class='btn btn-sm btn-outline-success  my-4' data-target='#add' data-toggle='modal'><i class='far fa-edit mr-1'></i>ADD NEW</button>
+                    <table id='table' class='table table-sm table-hover responsive'>
+                            <thead>
+                                <tr>
+                                    <td width='20%'>title</td>
+                                    <td width='30%'>desc</td>
+                                    <td width='15%'>img</td>
+                                    <td>Category</td>   
+                                    <td>qyt</td>
+                                    <td>price</td>
+                                    <td width='15%'></td>
+                                </tr>
+                            </thead>
+                    </table>
+                    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" >
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editLabel">Edit Data</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+                                <form action="{{ route('product.update','perbarui') }}" enctype="multipart/form-data" method="POST">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="modal-body">
+                                        @include('admin.products._form')
+                                    </div>           
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" >
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editLabel">Add Data</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form action="{{ route('product.store') }}" method="POST">
-                                        @method('POST')
-                                        @csrf
-                                        <div class="modal-body">
-                                            @include('admin.products._form')
-                                        </div>           
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
+                    </div>
+                    <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" >
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editLabel">Add Data</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+                                <form action="{{ route('product.store') }}" enctype="multipart/form-data" method="POST">
+                                    @method('POST')
+                                    @csrf
+                                    <div class="modal-body">
+                                        @include('admin.products._form')
+                                    </div>           
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
-                            <div class="modal-dialog" >
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editLabel">Delete Confirmation</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <form action="{{ route('product.destroy','test') }}" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <div class="modal-body">
-                                                <p class="text-center">
-                                                        Are you sure you want to delete this ? <span id='namax' class="font-weight-bold">Nama</span>
-                                                </p>
-                                                <input type="hidden" name="id" id="id" value="">
-                                        </div>           
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                    </form>
+                    </div>
+                    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog" >
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editLabel">Delete Confirmation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
                                 </div>
+                                <form action="{{ route('product.destroy','test') }}" enctype="multipart/form-data" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <div class="modal-body">
+                                            <p class="text-center">
+                                                    Are you sure you want to delete this ? <span id='namax' class="font-weight-bold">Nama</span>
+                                            </p>
+                                            <input type="hidden" name="id" id="id" value="">
+                                    </div>           
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="cat" role="tabpanel" aria-labelledby="profile-tab">
+                <div class="tab-pane fade" id="cat" role="tabpanel">
                     @include('admin.products.category.index')
                 </div>
                 </div>
@@ -127,7 +126,6 @@
                 modal.find('.modal-body #id').val(button.data('id'));
                 modal.find('.modal-body #title').val(button.data('title') );
                 modal.find('.modal-body #desc').val(button.data('desc') );
-                modal.find('.modal-body #img').val(button.data('img'));
                 modal.find('.modal-body #qyt').val(button.data('qyt') );
                 modal.find('.modal-body #price').val(button.data('price') );
             })

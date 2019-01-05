@@ -43,24 +43,46 @@ class ProductsController extends Controller
             'price' => ['required', 'max:10'],
             'category_id' => ['required', 'integer', 'exists:categories,id'],
         ]);
-        Product::create($request->all());
+        $product = Product::create($request->except('img'));
+        if ($request->hasFile('img')){
+            $uploaded_cover = $request->file('img');
+            $extension = $uploaded_cover->getClientOriginalExtension();
+            $filename = md5(time()) . '.' . $extension;
+            $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img'. DIRECTORY_SEPARATOR .'product';
+            $uploaded_cover->move($destinationPath, $filename);
+            $product->img = $filename;
+            $product->save();
+        }
         return back();
     }
     public function data()
     {
         $product = Product::with('category')->get();
         return DataTables::of($product)
+            ->addColumn('img', function ($product) {
+                $alamat = asset('img/product/'.$product->img);
+                return "<img src='$alamat' width='100px' height='120px'>";
+            })
             ->addColumn('action', function ($product) {
                 return "<button class='btn btn-sm btn-outline-primary' data-id='$product->id' data-title='$product->title' data-desc='$product->desc' data-img='$product->img' data-qyt='$product->qyt' data-price='$product->price'  data-target='#edit' data-toggle='modal' ><i class='far fa-edit mr-1'></i>Edit</button>
                         <button class='btn btn-sm btn-outline-danger' data-id='$product->id' data-title='$product->title' data-target='#delete' data-toggle='modal'><i class='far fa-trash-alt mr-1'></i>Hapus</button>";
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action','img'])
             ->make(true);
     }
     public function update(Request $request)
     {
         $product = Product::findOrFail($request->id);
-        $product->update($request->all());
+        $product->update($request->except('img'));
+        if ($request->hasFile('img')) {
+            $uploaded_cover = $request->file('img');
+            $extension = $uploaded_cover->getClientOriginalExtension();
+            $filename = md5(time()) . '.' . $extension;
+            $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img'. DIRECTORY_SEPARATOR .'product';
+            $uploaded_cover->move($destinationPath, $filename);
+            $product->img = $filename;
+            $product->save();
+        }
         return back();
     }
     public function destroy(Request $request)
@@ -69,4 +91,5 @@ class ProductsController extends Controller
         $product->delete();
         return back();
     }
+
 }

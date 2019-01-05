@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Laratrust\LaratrustFacade as Laratrust;
 use Auth;   
+use App\Category;
 class HomeController extends Controller
 {
     /**
@@ -23,11 +24,6 @@ class HomeController extends Controller
     public function index()
     {
         if (Laratrust::hasRole('admin')) return $this->adminDashboard();
-        if (Laratrust::hasRole('member')) return $this->memberDashboard();
-    }
-    protected function memberDashboard()
-    {
-        return view('index');
     }
     protected function adminDashboard()
     {

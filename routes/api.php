@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/datamenu','DataSiteController@index')->name('datamenu');
+Route::get('/alamat/prov','DataSiteController@alamatprov')->name('prov');
+Route::get('/alamat/kab/{id}','DataSiteController@alamatkab')->name('kab');
+Route::get('/alamat/kec/{id}','DataSiteController@alamatkec')->name('kec');

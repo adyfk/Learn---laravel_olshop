@@ -73,6 +73,9 @@ class UsersSeeder extends Seeder
         $prod->nama = "Satrio Piningit";
         $prod->alamat = "Semarang Barat";
         $prod->pos = "44322";
+        $prod->prov = 5;
+        $prod->kab = 10;
+        $prod->kec = 9;
         $prod->contact = "082136950725";
         $prod->save();
 

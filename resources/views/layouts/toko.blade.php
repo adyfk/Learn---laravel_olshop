@@ -17,7 +17,6 @@
     <!-- Styles -->
        <link href="{{ asset('css/bootstrap.min.css') }}" rel='stylesheet'>
     @yield('style')
-
 </head>
 <body>
     <div id="app">
@@ -29,11 +28,35 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                            <li class="nav-item">
+                    <div class="navbar-nav pl-5 ml-5 ml-auto ">
+                        <div class='nav-link dropdown'>
+                            <button class="btn btn-outline-none btn-sm" data-toggle="dropdown">Kategory <i class="fas fa-caret-down"></i></button>
+                            <div class="dropdown-menu dropdown-menu-left p-0" style="min-width:10vw">                                    
+                                <ul class="list-group list-group-flush" >
+                                    @foreach ($cat as $item)
+                                        <li class="list-group-item"><a href="" class="text-decoration-none" value='{{ $item->id }}'>{{ $item->title }}</a></li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="navbar-nav mr-auto col-8">
+                        <div class="nav-link col-12">
+                            <div class="input-group input-group-sm">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text bg-white border-secondary "><i class="fas fa-search"></i></span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Cari product di sini" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm pl-4 pr-4" type="button" id="button-addon2">Cari</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="navbar-nav ml-auto ">
+                        @guest       
+                            <li class="nav-item ml-4">
                                 <span class="nav-link">
                                     <a href="{{ url('/register') }}" class="btn btn-outline-none btn-sm">Register</a>
                                 </span>
@@ -46,55 +69,60 @@
                                             @include('auth.formlogin')
                                         </div>
                                     </div>
-                                    <script>
-                                        $('.dropdown').on('show.bs.dropdown', function(){
-                                            $('#overlay').show();
-                                        });
-                                        $('.dropdown').on('hidden.bs.dropdown', function(){
-                                            $('#overlay').hide();
-                                        });
-                                    </script>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
-                                    <button class="btn btn-sm border border-0"><i class="fas fa-bars fa-lg"></i></button>
-                                </a>    
-                            </li>
-                            @if (Route::has('register'))
-                            @endif
                         @else
-                            <li class="nav-link" href="">
-                                    <i class="fas fa-shopping-basket"></i>
+                            @role('admin')
+                            <li class="nav-link" >
+                                <a href="{{ url('/home') }}" class="text-decoration-none">Admin<i class="fas fa-tools mx-2"></i></a>
                             </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" data-toggle="dropdown">
-                                    <img src="{{ asset('img/th.jpg') }}" width="27" class="rounded-circle">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right p-1" style="min-width:13vw">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <small class="text-muted">Profile Saya</small><br>
-                                            <a href="" class="text-success text-decoration-none">{{ Auth::user()->name }}</a>
-                                        </li>
-                                        <a class="list-group-item text-dark text-decoration-none" href="{{ route('logout') }}" 
-                                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>    
-                                    </ul>
+                            @endrole
+                            @role('member')
+                            <li class="nav-link" href="">
+                                <a href="{{ url('/basket') }}"><i class="fas fa-lg fa-shopping-basket"></i><span class="badge badge-primary mx-1">0</span></a>
+                            </li>
+                            @endrole
+                            <li class="nav-item">
+                                <div class="nav-link dropdown">
+                                        <img src="{{ asset('img/th.jpg') }}" data-toggle="dropdown" width="27" class="rounded-circle">
+                                        <div class="dropdown-menu dropdown-menu-right p-1" style="min-width:13vw">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item">
+                                                    <small class="text-muted">Profile Saya</small><br>
+                                                    <a href="{{ url('/profile') }}" class="text-success text-decoration-none">{{ Auth::user()->name }}</a>
+                                                </li>
+                                                <a class="list-group-item text-dark text-decoration-none" href="{{ route('logout') }}" 
+                                                    onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();">
+                                                    {{ __('Logout') }}
+                                                </a>    
+                                            </ul>
+                                        </div>
                                 </div>
                             </li>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
                             </form>
                         @endguest
+                        <li class="nav-item">
+                            <a class="nav-link">
+                                <button class="btn btn-sm border border-0"><i class="fas fa-bars fa-lg"></i></button>
+                            </a>    
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="position-fixed" id='overlay' style="display:none;width:100%;height:100vh;background-color:black;opacity:0.5;top:61px;left:0;bottom:0;z-index:1;"></div> 
-        <main class="py-4">
+        <script>
+                $('.dropdown').on('show.bs.dropdown', function(){
+                    $('#overlay').show();
+                });
+                $('.dropdown').on('hidden.bs.dropdown', function(){
+                    $('#overlay').hide();
+                });
+        </script>
+        <div class="position-fixed" id='overlay' style="display:none;width:100%;height:100vh;background-color:black;opacity:0.5;z-index:1;"></div> 
+        <main>
             @yield('content')
         </main>
     </div>

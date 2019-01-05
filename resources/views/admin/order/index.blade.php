@@ -13,7 +13,7 @@
                 <td>id</td>
                 <td>user_id</td>
                 <td>price</td>
-                <td>payed</td>
+                <td>paid</td>
                 <td>status</td>
                 <td>Pesan</td>
                 <td>Ditangai</td>
